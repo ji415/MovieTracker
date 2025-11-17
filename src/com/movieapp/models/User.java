@@ -19,6 +19,8 @@ public class User {
     public String getUsername() { return username; }
     public String getPassword() { return password; }
 
+    public void setPassword(String newPwd) { this.password = newPwd; }  // change password
+
     public List<String> getWatchlistIds() { return watchlistIds; }
     public List<String> getHistoryIds() { return historyIds; }
 
