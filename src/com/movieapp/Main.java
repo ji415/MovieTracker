@@ -34,12 +34,14 @@ public class Main {
     private void showLoggedOutMenu() {
         System.out.println("\n=== Movie Tracker ===");
         System.out.println("1. Login");
-        System.out.println("2. Exit");
+        System.out.println("2. Register");  // register new user
+        System.out.println("3. Exit");
         System.out.print("Choose: ");
         String choice = scanner.nextLine().trim();
         switch (choice) {
             case "1": login(); break;
-            case "2": System.out.println("Bye!"); System.exit(0); break;
+            case "2": register(); break;
+            case "3": System.out.println("Bye!"); System.exit(0); break;
             default: System.out.println("Invalid choice");
         }
     }
@@ -85,7 +87,8 @@ public class Main {
                 if (recs.isEmpty()) System.out.println("No recommendations available.");
                 else for (Movie m : recs) System.out.println(m);
                 break;
-            case "8": logout(); break;
+            case "8": changePassword(); break;
+            case "9": logout(); break;
             default: System.out.println("Invalid choice");
         }
         dataManager.saveUsers(users);
@@ -190,3 +193,4 @@ public class Main {
         new Main().run();
     }
 }
+
