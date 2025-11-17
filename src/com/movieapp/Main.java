@@ -144,6 +144,48 @@ public class Main {
         try { return Integer.parseInt(s); } catch (Exception e) { return fallback; }
     }
 
+    private void register() {
+        System.out.println("\n--- Register New User ---");
+        System.out.print("Username: ");
+        String u = scanner.nextLine().trim();
+        if (u.isEmpty()) { System.out.println("Username cannot be empty."); return; }
+        if (users.containsKey(u)) { System.out.println("Username already exists."); return; }
+
+        System.out.print("Password (min 4 chars): ");
+        String p1 = scanner.nextLine();
+        System.out.print("Confirm password: ");
+        String p2 = scanner.nextLine();
+
+        if (!p1.equals(p2)) { System.out.println("Passwords do not match."); return; }
+        if (p1.length() < 4) { System.out.println("Password too short."); return; }
+
+        User newUser = new User(u, p1);
+        users.put(u, newUser);
+        dataManager.saveUsers(users);
+        System.out.println("Register success. You can login now.");
+    }
+
+    private void changePassword() {
+        System.out.println("\n--- Change Password ---");
+        System.out.print("Current password: ");
+        String cur = scanner.nextLine();
+        if (!currentUser.getPassword().equals(cur)) {
+            System.out.println("Current password incorrect.");
+            return;
+        }
+        System.out.print("New password (min 4 chars): ");
+        String p1 = scanner.nextLine();
+        System.out.print("Confirm new password: ");
+        String p2 = scanner.nextLine();
+
+        if (!p1.equals(p2)) { System.out.println("Passwords do not match."); return; }
+        if (p1.length() < 4) { System.out.println("Password too short."); return; }
+
+        currentUser.setPassword(p1);
+        users.put(currentUser.getUsername(), currentUser); // 覆盖更新
+        dataManager.saveUsers(users);
+        System.out.println("Password updated.");
+    }
     public static void main(String[] args) {
         new Main().run();
     }
